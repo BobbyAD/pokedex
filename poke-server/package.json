@@ -1,0 +1,15 @@
+{
+    "name": "poke-server",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "jest --watch"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/BobbyAD/pokedex"
+    },
+    "author": "Bobby Driskell",
+    "license": "ISC"
+}
