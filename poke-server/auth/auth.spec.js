@@ -15,7 +15,7 @@ admin.initializeApp({
 
 // fix for jest not closing
 beforeEach((done) => {
-    server = app.listen(5000, (err) => {
+    server = app.listen(4000, (err) => {
         if (err) {
             return done(err);
         }
@@ -40,7 +40,7 @@ describe("Firebase Auth Testing", () => {
 
         const expected = { status: "Accepted" };
         const response = await request(server)
-            .get("/api/user/user-test")
+            .get("/api/user/user")
             .set({ authorization: `Bearer ${token}` });
 
         return expect(response.body).toMatchObject(expected);

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
-import {loginUser, getTest} from "./auth/authorization";
+import {loginUser, getTest, createUser} from "./auth/authorization";
 
 function App() {
 
@@ -15,6 +15,14 @@ function App() {
             .catch((err) => {
                 console.log(err);
             })
+        
+            createUser({email: "1234@gmail.com", password: "asdf1234"})
+                .then((user) => {
+                    console.log(user);
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
     }, [])
 
     return (

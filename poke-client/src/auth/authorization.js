@@ -12,7 +12,7 @@ export const getTest = () => {
         .currentUser.getIdToken()
         .then((token) => {
             axios
-                .get("http://localhost:5000/api/user/user-test", {
+                .get("http://localhost:5000/api/user", {
                     headers: {
                         authorization: `Bearer ${token}`,
                     },
@@ -25,3 +25,9 @@ export const getTest = () => {
                 });
         });
 };
+
+export const createUser = (data) => {
+    console.log("creating user");
+    console.log(data);
+    return axios.post('http://localhost:5000/api/user/signup', data)
+}
