@@ -2,7 +2,7 @@ const router = require("express").Router();
 const admin = require("../auth/firebase");
 
 const userAuth = require("../auth/userAuth");
-const User = require("../db/User"); // interact with database
+const userController = require("../controllers/userController"); // interact with database
 
 // login
 router.get("/", userAuth, (req, res) => {
@@ -23,11 +23,12 @@ router.post("/signup", (req, res) => {
             password,
         })
         .then((user) => {
-            res.status(201).json(user);
+            console.log(user.uid);
+            userController.create(req, res, user.uid);
         })
         .catch((err) => {
             console.log(err);
-            res.status(500).json(err);
+            res.status(409).json({error: "User already exists"});
         });
 });
 

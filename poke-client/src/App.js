@@ -2,28 +2,35 @@ import React, { useEffect } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
-import {loginUser, getTest, createUser} from "./auth/authorization";
+import { loginUser, getTest, createUser } from "./auth/authorization";
 
 function App() {
-
     useEffect(() => {
-        loginUser("test@test.com", "test1234")
+        // loginUser("test@test.com", "test1234")
+        //     .then((user) => {
+        //         console.log(user);
+        //         getTest();
+        //     })
+        //     .catch((err) => {
+        //         console.log(err);
+        //     });
+
+        createUser({ email: "1234@gmail.com", password: "asdf1234" })
             .then((user) => {
                 console.log(user);
-                getTest();
+                loginUser("1234@gmail.com", "asdf1234")
+                    .then((user) => {
+                        console.log(user);
+                        getTest();
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
             })
             .catch((err) => {
                 console.log(err);
-            })
-        
-            createUser({email: "1234@gmail.com", password: "asdf1234"})
-                .then((user) => {
-                    console.log(user);
-                })
-                .catch((err) => {
-                    console.log(err);
-                })
-    }, [])
+            });
+    }, []);
 
     return (
         <div className="App">
