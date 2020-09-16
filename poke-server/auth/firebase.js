@@ -6,6 +6,4 @@ const firebase = admin.initializeApp({
     databaseURL: "https://pokedex-289717.firebaseio.com",
 });
 
-console.log(firebase);
-
 module.exports = firebase
