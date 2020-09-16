@@ -1,4 +1,5 @@
-//routes that return information from the Pokeapi - https://pokeapi.co/
+// testing pokedex-promise-v2 package
+// TODO: build functionality here for passing through data when making user requests.
 
 const router = require("express").Router();
 
