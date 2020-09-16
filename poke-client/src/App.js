@@ -7,7 +7,7 @@ import {loginUser, getTest} from "./auth/authorization";
 function App() {
 
     useEffect(() => {
-        loginUser("asdftestasdf@gmail.com", "asdf1234")
+        loginUser(`${process.env.TEST_EMAIL}`, `${process.env.TEST_PASS}`)
             .then((user) => {
                 console.log(user);
                 getTest();
