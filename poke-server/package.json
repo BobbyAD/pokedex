@@ -4,7 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "nodemon index.js",
+        "start": "cross-env NODE_ENV=production node index.js",
+        "dev": "cross-env NODE_ENV=development nodemon index.js",
         "test": "jest --detectOpenHandles"
     },
     "repository": {
@@ -14,8 +15,14 @@
     "author": "Bobby Driskell",
     "license": "ISC",
     "dependencies": {
+        "connect-mongo": "^3.2.0",
+        "cross-env": "^7.0.2",
         "dotenv": "^8.2.0",
         "express": "^4.17.1",
+        "express-session": "^1.17.1",
+        "mongoose": "^5.10.5",
+        "passport": "^0.4.1",
+        "passport-google-oauth20": "^2.0.0",
         "pokedex-promise-v2": "^3.2.0"
     },
     "devDependencies": {
