@@ -2,7 +2,7 @@
 require("dotenv").config();
 const connectDB = require("./db/db");
 
-const firebase = require("./auth/firebase");
+// const firebase = require('./auth/firebase');
 
 connectDB();
 

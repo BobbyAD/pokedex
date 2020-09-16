@@ -1,4 +1,4 @@
-const firebase = require("./firebase");
+const firebase = require('./firebase');
 
 const getAuthToken = (req, res, next) => {
     if (

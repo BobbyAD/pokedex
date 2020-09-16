@@ -26,11 +26,15 @@
     },
     "devDependencies": {
         "@types/jest": "^26.0.13",
+        "firebase": "^7.20.0",
         "jest": "^26.4.2",
         "nodemon": "^2.0.4",
         "supertest": "^4.0.2"
     },
     "jest": {
-        "testEnvironment": "node"
+        "testEnvironment": "node",
+        "setupFiles": [
+            "./jestSetup.js"
+        ]
     }
 }
