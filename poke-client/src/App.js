@@ -1,34 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
-import firebase from "firebase";
-
-firebase.initializeApp({
-    apiKey: process.env.GOOGLE_API_KEY,
-    authDomain: "pokedex-289717.firebaseapp.com",
-    databaseURL: "https://pokedex-289717.firebaseio.com",
-    projectId: "pokedex-289717",
-    storageBucket: "pokedex-289717.appspot.com",
-    messagingSenderId: "42373598062",
-    appId: "1:42373598062:web:bc4e323f74819441488f7f",
-});
-
-firebase.auth().currentUser.getIdToken(true)
-    .then((idToken) => {
-        client({
-            method: 'get',
-            url: '/',
-            headers: {
-                'AuthToken': idToken
-            }
-        })
-    })
-    .catch(err => {
-        console.log(err);
-    })
+import {loginUser, getTest} from "./auth/authorization";
 
 function App() {
+
+    useEffect(() => {
+        loginUser("asdftestasdf@gmail.com", "asdf1234")
+            .then((user) => {
+                console.log(user);
+                getTest();
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }, [])
+
     return (
         <div className="App">
             <header className="App-header">

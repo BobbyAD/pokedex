@@ -10,17 +10,20 @@ const getAuthToken = (req, res, next) => {
         req.authToken = null;
     }
 
-    next;
+    next();
 };
 
 // authentication controller
-const userAuth = (req, res) => {
+const userAuth = (req, res, next) => {
+    console.log("userAuth")
     getAuthToken(req, res, () => {
+        console.log("getAuthToken");
         const { authToken } = req;
         firebase
             .auth()
             .verifyIdToken(authToken)
             .then((userInfo) => {
+                console.log(userInfo);
                 req.authId = userInfo.uid;
                 return next();
             })

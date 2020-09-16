@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const userAuth = require("../auth/userAuth");
 
-router.get("/userTest", userAuth, (req, res) => {
+router.get("/user-test", userAuth, (req, res) => {
+    console.log("hey")
     return res.status(200).json({ status: "Accepted" });
 });
 
