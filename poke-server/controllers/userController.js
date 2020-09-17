@@ -2,13 +2,13 @@ const User = require("../db/User");
 
 const UserController = {
     find: (req, res) => {
-        UserModel.find({ firebaseId: req.params.userId })
+        User.find({ firebaseId: req.authId })
             .then((user) => {
-                res.status(200).json(user);
+                res.status(200).json(user[0]);
             })
             .catch((err) => {
                 console.log(err);
-                res.status(500).json(err);
+                res.status(404).json(err);
             });
     },
     create: (req, res, firebaseId) => {
@@ -25,7 +25,7 @@ const UserController = {
             });
     },
     getCollections: (req, res) => {
-        UserModel.find({
+        User.find({
             firebaseId: req.params.firebaseId,
         })
             .populate("collections")

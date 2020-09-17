@@ -46,3 +46,9 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+
+/* fix for 100% height */
+body, html, #root {
+    height: 100%;
+}

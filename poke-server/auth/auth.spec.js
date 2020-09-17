@@ -38,11 +38,11 @@ describe("Firebase Auth Testing", () => {
             );
         const token = await admin.auth().currentUser.getIdToken();
 
-        const expected = { status: "Accepted" };
+        // const expected = { status: "Accepted" };
         const response = await request(server)
-            .get("/api/user/user")
+            .get("/api/user/")
             .set({ authorization: `Bearer ${token}` });
 
-        return expect(response.body).toMatchObject(expected);
+        return expect(response.status).toEqual(200);
     });
 });

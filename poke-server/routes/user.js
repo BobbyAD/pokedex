@@ -8,13 +8,13 @@ const userController = require("../controllers/userController"); // interact wit
 router.get("/", userAuth, (req, res) => {
     // use authId for database storage
     console.log(req.authId);
-    return res.status(200).json({ status: "Accepted" });
+    return userController.find(req, res);
 });
 
 // create account
 router.post("/signup", (req, res) => {
-    console.log("in signup")
-    console.log(req.body)
+    console.log("in signup");
+    console.log(req.body);
     const { email, password } = req.body;
     admin
         .auth()
@@ -28,7 +28,7 @@ router.post("/signup", (req, res) => {
         })
         .catch((err) => {
             console.log(err);
-            res.status(409).json({error: "User already exists"});
+            res.status(409).json({ error: "User already exists" });
         });
 });
 
