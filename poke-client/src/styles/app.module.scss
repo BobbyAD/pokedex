@@ -3,6 +3,19 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
 
     font-family: sans-serif;
+}
+
+// TODO: move to globals file
+
+button {
+    background: rgb(46, 97, 235);
+    border: 2px solid rgb(9, 55, 179);
+    color: white;
+
+    margin: 0 5px;
+    padding: 10px 20px;
+    border-radius: 20px;
 }

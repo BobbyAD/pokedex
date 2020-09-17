@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Header from "./components/header/Header";
 import Home from "./components/home/Home";
+import Login from "./components/login/Login";
 
 import styles from "./styles/app.module.scss";
 
@@ -43,6 +44,9 @@ function App() {
                 <Switch>
                     <Route path="/" exact>
                         <Home />
+                    </Route>
+                    <Route path="/" exact>
+                        <Login />
                     </Route>
                 </Switch>
             </Router>

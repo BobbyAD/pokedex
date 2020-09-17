@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Pokedex } from "pokeapi-js-wrapper";
 import PokemonCard from "./PokemonCard";
+import Filter from "../filter/Filter";
 
 import styles from "../../styles/allPokemon.module.scss";
 
@@ -74,6 +75,7 @@ const AllPokemon = () => {
 
     return (
         <div className={styles.container}>
+            <Filter P={P} pokemon={pokemon}/>
             {pokemon.map((pokemon) => (
                 <PokemonCard pokemon={pokemon} P={P} />
             ))}
