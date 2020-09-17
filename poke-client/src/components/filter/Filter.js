@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../styles/filter.module.scss";
 
-const Filter = ({ P, pokemon }) => {
+const Filter = ({ P, setPokemon, resetList }) => {
     const [showFilter, setShowFilter] = useState(false);
     const [regions, setRegions] = useState([]);
     const [selected, setSelected] = useState({});
+
+    const [searchValue, setSearchValue] = useState("");
 
     useEffect(() => {
         P.getRegionsList()
@@ -46,6 +48,36 @@ const Filter = ({ P, pokemon }) => {
         // }
     };
 
+    const handleSearch = (e) => {
+        setSearchValue(e.target.value);
+    };
+
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        // name: "bulbasaur"
+        // url: "https://pokeapi.co/api/v2/pokemon/1/"
+        P.getPokemonByName(searchValue.toLowerCase())
+            .then((res) => {
+                setPokemon([
+                    {
+                        name: res.name,
+                        url: `https://pokeapi.co/api/v2/pokemon/${res.id}/`,
+                    },
+                ]);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    const handleReset = () => {
+        resetList();
+        setSearchValue("");
+        for (let k of Object.keys(selected)) {
+            selected[k] = false;
+        }
+    };
+
     return (
         <div className={styles.container}>
             <div className={styles.filterContainer}>
@@ -55,7 +87,10 @@ const Filter = ({ P, pokemon }) => {
                 {showFilter ? (
                     <div className={styles.filters}>
                         <div className={styles.filterGroup}>
-                            <h5>Region: (not functional -- need to restructure PokeAPI data)</h5>
+                            <h5>
+                                Region: (not functional -- need to restructure
+                                PokeAPI data)
+                            </h5>
                             <div className={styles.filterList}>
                                 {regions.map((region) => (
                                     <button
@@ -78,6 +113,18 @@ const Filter = ({ P, pokemon }) => {
                         >
                             Filter!
                         </button>
+                        <form onSubmit={handleSearchSubmit}>
+                            <label>
+                                Search by name (name must be exact):
+                                <input
+                                    type="text"
+                                    value={searchValue}
+                                    onChange={handleSearch}
+                                />
+                            </label>
+                            <input type="submit" value="submit" />
+                        </form>
+                        <button onClick={handleReset}>Reset</button>
                     </div>
                 ) : (
                     <></>

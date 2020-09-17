@@ -15,19 +15,22 @@ const AllPokemon = () => {
     const [backDisabled, setBackDisabled] = useState(true);
 
     useEffect(() => {
+        resetList();
+    }, []);
+
+    const resetList = () => {
         P.getPokemonsList({
             // the original 150 + Mew
             limit: 20,
             offset: 0,
         })
             .then((res) => {
-                // console.log(res.results);
                 setPokemon(res.results);
             })
             .catch((err) => {
                 console.log(err);
             });
-    }, []);
+    }
 
     const back = () => {
         if (offset > 0) {
@@ -75,7 +78,7 @@ const AllPokemon = () => {
 
     return (
         <div className={styles.container}>
-            <Filter P={P} pokemon={pokemon}/>
+            <Filter P={P} setPokemon={setPokemon} resetList={resetList}/>
             {pokemon.map((pokemon) => (
                 <PokemonCard pokemon={pokemon} P={P} />
             ))}
