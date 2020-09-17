@@ -122,7 +122,7 @@ const Filter = ({ P, setPokemon, resetList }) => {
                                     onChange={handleSearch}
                                 />
                             </label>
-                            <input type="submit" value="submit" />
+                            <button type="submit" value="submit">Submit!</button>
                         </form>
                         <button onClick={handleReset}>Reset</button>
                     </div>

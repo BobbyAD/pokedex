@@ -14,6 +14,8 @@ const AllPokemon = () => {
     const [forwardDisabled, setForwardDisabled] = useState(false);
     const [backDisabled, setBackDisabled] = useState(true);
 
+    const [newCollection, setNewCollection] = useState([]);
+
     useEffect(() => {
         resetList();
     }, []);
