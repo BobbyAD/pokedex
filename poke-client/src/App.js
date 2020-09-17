@@ -1,4 +1,8 @@
 import React, { useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+import Header from "./components/header/Header";
+import Home from "./components/home/Home";
 
 import styles from "./styles/app.module.scss";
 
@@ -34,7 +38,14 @@ function App() {
 
     return (
         <div className={styles.container}>
-            asdf
+            <Router>
+                <Header />
+                <Switch>
+                    <Route path="/" exact>
+                        <Home />
+                    </Route>
+                </Switch>
+            </Router>
         </div>
     );
 }
