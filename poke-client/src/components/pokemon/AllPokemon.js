@@ -9,25 +9,68 @@ const P = new Pokedex();
 const AllPokemon = () => {
     // TODO: implement infinite scrolling
     const [pokemon, setPokemon] = useState([]);
+    const [offset, setOffset] = useState(0);
+    const [forwardDisabled, setForwardDisabled] = useState(false);
+    const [backDisabled, setBackDisabled] = useState(true);
 
     useEffect(() => {
         P.getPokemonsList({
             // the original 150 + Mew
             limit: 20,
             offset: 0,
-        }).then((res) => {
-            // console.log(res.results);
-            setPokemon(res.results);
-        });
+        })
+            .then((res) => {
+                // console.log(res.results);
+                setPokemon(res.results);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }, []);
 
     const back = () => {
-
-    }
+        if (offset > 0) {
+            P.getPokemonsList({
+                limit: 20,
+                offset: offset - 20,
+            })
+                .then((res) => {
+                    setPokemon(res.results);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+            setOffset(offset - 20);
+            if (offset === 1050) {
+                setForwardDisabled(false);
+            }
+            if (offset === 20) {
+                setBackDisabled(true);
+            }
+        }
+    };
 
     const forward = () => {
-
-    }
+        if (offset < 1030) {
+            P.getPokemonsList({
+                limit: 20,
+                offset: offset + 20,
+            })
+                .then((res) => {
+                    setPokemon(res.results);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+            setOffset(offset + 20);
+            if (offset === 1030) {
+                setForwardDisabled(true);
+            }
+            if (offset === 0) {
+                setBackDisabled(false);
+            }
+        }
+    };
 
     return (
         <div className={styles.container}>
@@ -35,8 +78,12 @@ const AllPokemon = () => {
                 <PokemonCard pokemon={pokemon} P={P} />
             ))}
             <div className={styles.pagination}>
-                <button onClick={back}>Back</button>
-                <button onClick={forward}>Forward</button>
+                <button onClick={back} disabled={backDisabled}>
+                    Back
+                </button>
+                <button onClick={forward} disabled={forwardDisabled}>
+                    Forward
+                </button>
             </div>
         </div>
     );

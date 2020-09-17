@@ -45,7 +45,7 @@ const PokemonCard = ({ pokemon, P }) => {
             };
             setPokemonDetails(details);
         });
-    }, []);
+    }, [pokemon]);
 
     return (
         <section className={styles.container}>
