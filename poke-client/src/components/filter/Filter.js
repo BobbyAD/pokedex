@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { createCollection, getCollections } from "../../auth/authorization";
 import { Context } from "../../context/Context";
 import styles from "../../styles/filter.module.scss";
+import Search from "./Search";
 
 const Filter = ({
     P,
@@ -96,32 +97,6 @@ const Filter = ({
         setCollectionValue("");
     };
 
-    const handleSearch = (e) => {
-        setSearchValue(e.target.value);
-    };
-
-    const handleSearchSubmit = (e) => {
-        e.preventDefault();
-        // name: "bulbasaur"
-        // url: "https://pokeapi.co/api/v2/pokemon/1/"
-        if (searchValue !== "") {
-            P.getPokemonByName(searchValue.toLowerCase())
-                .then((res) => {
-                    setPokemon([
-                        {
-                            name: res.name,
-                            url: `https://pokeapi.co/api/v2/pokemon/${res.id}/`,
-                        },
-                    ]);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        } else {
-            resetList();
-        }
-    };
-
     const handleReset = () => {
         resetList();
         setSearchValue("");
@@ -139,7 +114,7 @@ const Filter = ({
                 </div>
                 {showFilter ? (
                     <div className={styles.filters}>
-                        <div className={styles.filterGroup}>
+                        {/* <div className={styles.filterGroup}>
                             <h5>
                                 Region: (not functional -- need to restructure
                                 PokeAPI data)
@@ -159,7 +134,7 @@ const Filter = ({
                                     </button>
                                 ))}
                             </div>
-                        </div>
+                        </div> */}
                         {context.loggedIn ? (
                             <div className={styles.filters}>
                                 <div className={styles.filterGroup}>
@@ -183,6 +158,12 @@ const Filter = ({
                                             )
                                         )}
                                     </div>
+                                    <button
+                                        className={styles.filterButton}
+                                        onClick={handleFilter}
+                                    >
+                                        Filter!
+                                    </button>
                                     <div>
                                         <form onSubmit={addCollection}>
                                             <label>
@@ -206,24 +187,16 @@ const Filter = ({
                         ) : (
                             <></>
                         )}
-                        <button
-                            className={styles.filterButton}
-                            onClick={handleFilter}
-                        >
-                            Filter!
+                        <Search
+                            P={P}
+                            setPokemon={setPokemon}
+                            setSearchValue={setSearchValue}
+                            searchValue={searchValue}
+                            resetList={resetList}
+                        />
+                        <button onClick={handleReset} className={styles.reset}>
+                            Reset
                         </button>
-                        <form onSubmit={handleSearchSubmit}>
-                            <label>
-                                Search by name (name must be exact):
-                                <input
-                                    type="text"
-                                    value={searchValue}
-                                    onChange={handleSearch}
-                                />
-                            </label>
-                            <button type="submit">Submit!</button>
-                        </form>
-                        <button onClick={handleReset}>Reset</button>
                     </div>
                 ) : (
                     <></>
