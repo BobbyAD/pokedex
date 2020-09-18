@@ -50,7 +50,7 @@ const Filter = ({
         }
     };
 
-    // TODO: break out in to components
+    // TODO: Adjust Collection Filter component to render other filter groups too
     return (
         <div className={styles.container}>
             <div className={styles.filterContainer}>

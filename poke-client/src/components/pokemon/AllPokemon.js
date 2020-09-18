@@ -4,9 +4,10 @@ import { Pokedex } from "pokeapi-js-wrapper";
 import PokemonCard from "./PokemonCard";
 import Filter from "../filter/Filter";
 
-import styles from "../../styles/allPokemon.module.scss";
 import { createCollection, getCollections } from "../../auth/authorization";
 import { Context } from "../../context/Context";
+
+import styles from "../../styles/allPokemon.module.scss";
 
 const P = new Pokedex();
 
@@ -20,7 +21,6 @@ const AllPokemon = () => {
     const [picking, setPicking] = useState(false);
     const [filtering, setFiltering] = useState(false);
 
-    // TODO: Change collections to Objects
     const [newCollection, setNewCollection] = useState({});
 
     useEffect(() => {
