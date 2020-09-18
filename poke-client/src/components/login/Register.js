@@ -46,25 +46,29 @@ const Register = () => {
         return (
             <div className={styles.container}>
                 <form className={styles.form} onSubmit={handleRegister}>
-                    <label>
-                        Email
-                        <input
-                            type="text"
-                            name="email"
-                            value={creds.email}
-                            onChange={handleChanges}
-                        />
+                    <label className={styles.label}>
+                        <h4>Email</h4>
                     </label>
-                    <label>
-                        Password
-                        <input
-                            type="password"
-                            name="password"
-                            value={creds.password}
-                            onChange={handleChanges}
-                        />
+                    <input
+                        type="text"
+                        name="email"
+                        value={creds.email}
+                        onChange={handleChanges}
+                        className={styles.field}
+                    />
+                    <label className={styles.label}>
+                        <h4>Password</h4>
                     </label>
-                    <button type="submit">Register!</button>
+                    <input
+                        type="password"
+                        name="password"
+                        value={creds.password}
+                        onChange={handleChanges}
+                        className={styles.field}
+                    />
+                    <button type="submit" className={styles.button}>
+                        Register!
+                    </button>
                 </form>
             </div>
         );

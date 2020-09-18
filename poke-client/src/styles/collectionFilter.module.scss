@@ -1,0 +1,54 @@
+.container {
+    h5 {
+        font-size: 1.4rem;
+        color: rgb(2, 23, 37);
+        margin-bottom: .5rem;
+    }
+    font-weight: bold;
+}
+
+.filterGroup {
+
+}
+
+.filterList {
+    margin: .5rem 0;
+}
+
+.filterButton {
+    background: rgb(18, 228, 123);
+    border: 2px solid rgb(61, 247, 185);
+    color: white;
+    font-weight: bold;
+
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+}
+
+.selected {
+    background: rgb(4, 194, 169);
+    border: 2px solid rgb(6, 241, 143);
+    padding: .5rem 1rem;
+    margin-left: .2rem;
+    
+    font-weight: bold;
+    color: white;
+
+    &:first-child {
+        margin-left: 0;
+    }
+}
+
+.unselected {
+    border: 2px solid rgb(44, 44, 44);
+    background: rgb(97, 97, 97);
+    padding: .5rem 1rem;
+    margin-left: .2rem;
+
+    font-weight: bold;
+    color: rgb(184, 184, 184);
+
+    &:first-child {
+        margin-left: 0;
+    }
+}

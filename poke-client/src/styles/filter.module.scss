@@ -40,7 +40,18 @@
     display: flex;
 }
 
-.selected {
-    background: rgb(4, 194, 169);
-    border: 2px solid rgb(6, 241, 143);
+.reset {
+    width: 100%;
+    border: 2px solid rgb(179, 0, 30);
+    background: rgb(248, 74, 74);
+    color: white;
+    font-weight: bold;
+    font-size: 1.4rem;
+    padding: .5rem;
+    border-radius: 8px;
 }
+
+// .selected {
+//     background: rgb(4, 194, 169);
+//     border: 2px solid rgb(6, 241, 143);
+// }

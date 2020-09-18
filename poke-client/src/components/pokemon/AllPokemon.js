@@ -18,6 +18,7 @@ const AllPokemon = () => {
     const [backDisabled, setBackDisabled] = useState(true);
 
     const [picking, setPicking] = useState(false);
+    const [filtering, setFiltering] = useState(false);
 
     // TODO: Change collections to Objects
     const [newCollection, setNewCollection] = useState([]);
@@ -37,6 +38,10 @@ const AllPokemon = () => {
     const togglePicking = () => {
         setPicking(!picking);
     };
+
+    const toggleFiltering = () => {
+        setFiltering(!filtering);
+    }
 
     const submitCollection = (name) => {
         const data = {
@@ -70,6 +75,7 @@ const AllPokemon = () => {
             .catch((err) => {
                 console.log(err);
             });
+        setFiltering(false);
     };
 
     const back = () => {
@@ -122,6 +128,7 @@ const AllPokemon = () => {
                 P={P}
                 setPokemon={setPokemon}
                 togglePicking={togglePicking}
+                toggleFiltering={toggleFiltering}
                 submitCollection={submitCollection}
                 resetList={resetList}
             />
@@ -133,6 +140,8 @@ const AllPokemon = () => {
                     addPokemon={addPokemon}
                 />
             ))}
+            {
+                filtering ? <></>:
             <div className={styles.pagination}>
                 <button onClick={back} disabled={backDisabled}>
                     Back
@@ -141,6 +150,7 @@ const AllPokemon = () => {
                     Forward
                 </button>
             </div>
+}
         </div>
     );
 };
