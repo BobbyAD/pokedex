@@ -3,7 +3,7 @@ import { Context } from "../../context/Context";
 
 import styles from "../../styles/collectionFilter.module.scss";
 
-const CollectionFilter = ({selected, setSelected, setPokemon}) => {
+const CollectionFilter = ({selected, setSelected, setPokemon, toggleFiltering}) => {
     const [context, dispatch] = useContext(Context);
 
     const handleFilterSelect = (e) => {
@@ -51,6 +51,8 @@ const CollectionFilter = ({selected, setSelected, setPokemon}) => {
                 }
             });
         }
+
+        toggleFiltering();
 
         setPokemon(newPokemon);
     };

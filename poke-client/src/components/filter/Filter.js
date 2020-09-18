@@ -11,6 +11,7 @@ const Filter = ({
     submitCollection,
     togglePicking,
     resetList,
+    toggleFiltering
 }) => {
     const [context, dispatch] = useContext(Context);
     const [showFilter, setShowFilter] = useState(false);
@@ -85,6 +86,7 @@ const Filter = ({
                                     selected={selected}
                                     setSelected={setSelected}
                                     setPokemon={setPokemon}
+                                    toggleFiltering={toggleFiltering}
                                 />
                                 <NewCollection 
                                     submitCollection={submitCollection}
