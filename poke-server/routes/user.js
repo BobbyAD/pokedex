@@ -24,7 +24,7 @@ router.post("/signup", (req, res) => {
         })
         .then((user) => {
             console.log(user.uid);
-            userController.create(req, res, user.uid);
+            userController.create(req, res, user.uid, user.email);
         })
         .catch((err) => {
             console.log(err);

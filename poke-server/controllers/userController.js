@@ -11,9 +11,10 @@ const UserController = {
                 res.status(404).json(err);
             });
     },
-    create: (req, res, firebaseId) => {
+    create: (req, res, firebaseId, email) => {
         console.log("creating in mongoose")
-        let newUser = new User({firebaseId: firebaseId});
+        console.log(firebaseId, email)
+        let newUser = new User({firebaseId: firebaseId, email: email});
         newUser
             .save()
             .then((user) => {

@@ -6,7 +6,7 @@ import { Context } from "../../context/Context";
 
 import styles from "../../styles/login.module.scss";
 
-const Login = () => {
+const Register = () => {
     const [context, dispatch] = useContext(Context);
     const [creds, setCreds] = useState({
         email: "",
@@ -14,12 +14,22 @@ const Login = () => {
     });
     const [redirect, setRedirect] = useState(false);
 
-    const handleLogin = (e) => {
+    const handleRegister = (e) => {
         e.preventDefault();
-        loginUser(creds.email, creds.password)
+        createUser({
+            email: creds.email,
+            password: creds.password,
+        })
             .then((res) => {
-                setRedirect(true);
                 console.log(res);
+                loginUser(creds.email, creds.password)
+                    .then((res) => {
+                        console.log(res);
+                        setRedirect(true);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
             })
             .catch((err) => {
                 console.log(err);
@@ -35,7 +45,7 @@ const Login = () => {
     } else {
         return (
             <div className={styles.container}>
-                <form className={styles.form} onSubmit={handleLogin}>
+                <form className={styles.form} onSubmit={handleRegister}>
                     <label>
                         Email
                         <input
@@ -54,11 +64,11 @@ const Login = () => {
                             onChange={handleChanges}
                         />
                     </label>
-                    <button type="submit">Login!</button>
+                    <button type="submit">Register!</button>
                 </form>
             </div>
         );
     }
 };
 
-export default Login;
+export default Register;
