@@ -21,7 +21,7 @@ const AllPokemon = () => {
     const [filtering, setFiltering] = useState(false);
 
     // TODO: Change collections to Objects
-    const [newCollection, setNewCollection] = useState([]);
+    const [newCollection, setNewCollection] = useState({});
 
     useEffect(() => {
         resetList();
@@ -32,8 +32,14 @@ const AllPokemon = () => {
     }, [picking]);
 
     const addPokemon = (newPokemon) => {
-        setNewCollection([...newCollection, newPokemon]);
+        setNewCollection({...newCollection, [newPokemon.name]: newPokemon.url})
     };
+
+    const removePokemon = (name) => {
+        let updatedCollection = {...newCollection}
+        delete updatedCollection[name];
+        setNewCollection(updatedCollection);
+    }
 
     const togglePicking = () => {
         setPicking(!picking);
@@ -44,15 +50,24 @@ const AllPokemon = () => {
     }
 
     const submitCollection = (name) => {
+        let formattedCollection = [];
+
+        for (let k of Object.keys(newCollection)) {
+            formattedCollection.push({
+                name: k,
+                url: newCollection[k]
+            })
+        }
+
         const data = {
             collection: {
                 name: name,
-                pokemon: newCollection,
+                pokemon: formattedCollection,
             },
         };
 
         createCollection(data).then((col) => {
-            setNewCollection([]);
+            setNewCollection({});
             getCollections().then((collections) => {
                 console.log(collections);
                 dispatch({
@@ -61,6 +76,8 @@ const AllPokemon = () => {
                 });
             });
         });
+
+        setPicking(false);
     };
 
     const resetList = () => {
@@ -138,6 +155,8 @@ const AllPokemon = () => {
                     P={P}
                     picking={picking}
                     addPokemon={addPokemon}
+                    removePokemon={removePokemon}
+                    newCollection={newCollection}
                 />
             ))}
             {

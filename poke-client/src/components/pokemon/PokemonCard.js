@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../styles/pokemonCard.module.scss";
 
-const PokemonCard = ({ pokemon, P, picking, addPokemon }) => {
+const PokemonCard = ({ pokemon, P, picking, addPokemon, removePokemon, newCollection }) => {
     const [pokemonDetails, setPokemonDetails] = useState({});
 
     useEffect(() => {
@@ -48,15 +48,27 @@ const PokemonCard = ({ pokemon, P, picking, addPokemon }) => {
     }, [pokemon]);
 
     const pushPokemon = () => {
-        console.log(pokemon)
-        const newPokemon = {...pokemon}
-        addPokemon(newPokemon);
-    }
+        if (!newCollection[pokemon.name]) {
+            const newPokemon = { ...pokemon };
+            addPokemon(newPokemon);
+        } else {
+            removePokemon(pokemon.name);
+        }
+    };
 
     return (
-        <section className={picking ? styles.containerPicking : styles.container}>
+        <section
+            className={
+                picking && !newCollection[pokemon.name]
+                    ? styles.containerPicking
+                    : styles.container
+            }
+        >
             {pokemonDetails && pokemonDetails.image ? (
-                <div className={styles.cardContainer} onClick={picking ? pushPokemon : null}>
+                <div
+                    className={styles.cardContainer}
+                    onClick={picking ? pushPokemon : null}
+                >
                     <img
                         src={pokemonDetails.image}
                         alt={`Image of ${pokemonDetails.name}`}
