@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { createCollection } from "../../auth/authorization";
+import { Context } from "../../context/Context";
 import styles from "../../styles/filter.module.scss";
 
 const Filter = ({ P, setPokemon, resetList }) => {
+    const [context, dispatch] = useContext(Context);
     const [showFilter, setShowFilter] = useState(false);
     const [regions, setRegions] = useState([]);
     const [selected, setSelected] = useState({});
 
+    const [collectionValue, setCollectionValue] = useState("");
     const [searchValue, setSearchValue] = useState("");
 
     useEffect(() => {
@@ -46,6 +50,21 @@ const Filter = ({ P, setPokemon, resetList }) => {
         //             });
         //     }
         // }
+    };
+
+    const handleCollectionValue = (e) => {
+        setCollectionValue(e.target.value);
+    };
+
+    const addCollection = (e) => {
+        e.preventDefault();
+        const data = {
+            collection: {
+                name: collectionValue,
+                pokemon: ["bulbasaur", "charizard"],
+            },
+        };
+        createCollection(data);
     };
 
     const handleSearch = (e) => {
@@ -107,6 +126,45 @@ const Filter = ({ P, setPokemon, resetList }) => {
                                 ))}
                             </div>
                         </div>
+                        {context.loggedIn ? (
+                            <div className={styles.filters}>
+                                <div className={styles.filterGroup}>
+                                    <h5>Collections:</h5>
+                                    <div className={styles.filterList}>
+                                        {context.collections.map(
+                                            (collection) => (
+                                                <button
+                                                    className={
+                                                        selected[
+                                                            collection.name
+                                                        ]
+                                                            ? styles.selected
+                                                            : styles.unselected
+                                                    }
+                                                    onClick={handleFilterSelect}
+                                                    name={collection.name}
+                                                >
+                                                    {collection.name}
+                                                </button>
+                                            )
+                                        )}
+                                    </div>
+                                    <form onSubmit={addCollection}>
+                                        <label>
+                                            Collection Name:
+                                            <input
+                                                type="text"
+                                                value={collectionValue}
+                                                onChange={handleCollectionValue}
+                                            />
+                                        </label>
+                                        <button type="submit">Add!</button>
+                                    </form>
+                                </div>
+                            </div>
+                        ) : (
+                            <></>
+                        )}
                         <button
                             className={styles.filterButton}
                             onClick={handleFilter}
@@ -122,7 +180,7 @@ const Filter = ({ P, setPokemon, resetList }) => {
                                     onChange={handleSearch}
                                 />
                             </label>
-                            <button type="submit" value="submit">Submit!</button>
+                            <button type="submit">Submit!</button>
                         </form>
                         <button onClick={handleReset}>Reset</button>
                     </div>

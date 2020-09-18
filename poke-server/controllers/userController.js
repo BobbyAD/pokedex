@@ -27,11 +27,11 @@ const UserController = {
     },
     getCollections: (req, res) => {
         User.find({
-            firebaseId: req.params.firebaseId,
+            firebaseId: req.authId,
         })
             .populate("collections")
             .then((user) => {
-                res.status(200).json(user);
+                res.status(200).json(user[0].collections);
             })
             .catch((err) => {
                 console.log(err);

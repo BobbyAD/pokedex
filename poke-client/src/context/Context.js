@@ -4,6 +4,7 @@ export const Context = React.createContext();
 
 const initialState = {
     loggedIn: false,
+    collections: [],
 };
 
 const reducer = (state, action) => {
@@ -12,6 +13,8 @@ const reducer = (state, action) => {
             return { ...state, loggedIn: true };
         case "LOG_OUT":
             return { ...state, loggedIn: false };
+        case "GET_COLLECTIONS":
+            return {...state, collections: action.payload}
     }
 };
 

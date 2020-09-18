@@ -28,8 +28,51 @@ export const getTest = () => {
         });
 };
 
+export const getCollections = () => {
+    return auth()
+        .currentUser.getIdToken()
+        .then((token) => {
+            axios
+                .get("http://localhost:5000/api/user/collections", {
+                    headers: {
+                        authorization: `Bearer ${token}`,
+                    },
+                })
+                .then((res) => {
+                    console.log("collections", res.data);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        });
+};
+
+// TODO: Login with firebase first, then send data to add to database
+// firebase-admin can actually create users with no credentials
+// This defeats the purpose of letting Firebase handle my auth
 export const createUser = (data) => {
     console.log("creating user");
     console.log(data);
     return axios.post("http://localhost:5000/api/user/signup", data);
+};
+
+export const createCollection = (data) => {
+    return auth()
+        .currentUser.getIdToken()
+        .then((token) => {
+            axios.post("http://localhost:5000/api/user/collections", data, {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
+            })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 };

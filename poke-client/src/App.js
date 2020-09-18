@@ -11,6 +11,7 @@ import Login from "./components/login/Login";
 import Register from "./components/login/Register";
 
 import styles from "./styles/app.module.scss";
+import { getCollections } from "./auth/authorization";
 
 // import { loginUser, getTest, createUser } from "./auth/authorization";
 
@@ -19,14 +20,20 @@ function App() {
 
     useEffect(() => {
         auth().onAuthStateChanged((user) => {
-            console.log("auth state changed")
+            console.log("auth state changed");
             if (user) {
-                dispatch({ type: "LOG_IN" });
+                getCollections().then((res) => {
+                    dispatch({ type: "LOG_IN" });
+                    // dispatch({
+                    //     type: "GET_COLLECTIONS",
+                    //     payload:
+                    // })
+                });
             } else {
                 dispatch({ type: "LOG_OUT" });
             }
-        })
-    }, [])
+        });
+    }, []);
 
     // useEffect(() => {
     //     // loginUser("1234@gmail.com", "asdf1234")
@@ -58,18 +65,18 @@ function App() {
     return (
         <div className={styles.container}>
             <Router>
-                    <Header />
-                    <Switch>
-                        <Route path="/" exact>
-                            <Home />
-                        </Route>
-                        <Route path="/login" exact>
-                            <Login />
-                        </Route>
-                        <Route path="/register" exact>
-                            <Register />
-                        </Route>
-                    </Switch>
+                <Header />
+                <Switch>
+                    <Route path="/" exact>
+                        <Home />
+                    </Route>
+                    <Route path="/login" exact>
+                        <Login />
+                    </Route>
+                    <Route path="/register" exact>
+                        <Register />
+                    </Route>
+                </Switch>
             </Router>
         </div>
     );

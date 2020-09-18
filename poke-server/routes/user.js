@@ -2,7 +2,8 @@ const router = require("express").Router();
 const admin = require("../auth/firebase");
 
 const userAuth = require("../auth/userAuth");
-const userController = require("../controllers/userController"); // interact with database
+const userController = require("../controllers/userController");
+const collectionController = require("../controllers/collectionController");
 
 // login
 router.get("/", userAuth, (req, res) => {
@@ -33,9 +34,14 @@ router.post("/signup", (req, res) => {
 });
 
 // get collections
+router.get("/collections", userAuth, (req, res) => {
+    return userController.getCollections(req, res)
+})
 
 // add collections
-
+router.post("/collections", userAuth, (req, res) => {
+    return collectionController.create(req, res);
+})
 // edit collections
 
 // delete collections
