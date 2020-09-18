@@ -1,24 +1,62 @@
-import React, { useState, useEffect } from "react";
+// TODO: implement infinite scrolling
+import React, { useState, useEffect, useContext } from "react";
 import { Pokedex } from "pokeapi-js-wrapper";
 import PokemonCard from "./PokemonCard";
 import Filter from "../filter/Filter";
 
 import styles from "../../styles/allPokemon.module.scss";
+import { createCollection, getCollections } from "../../auth/authorization";
+import { Context } from "../../context/Context";
 
 const P = new Pokedex();
 
 const AllPokemon = () => {
-    // TODO: implement infinite scrolling
+    const [context, dispatch] = useContext(Context);
     const [pokemon, setPokemon] = useState([]);
     const [offset, setOffset] = useState(0);
     const [forwardDisabled, setForwardDisabled] = useState(false);
     const [backDisabled, setBackDisabled] = useState(true);
 
+    const [picking, setPicking] = useState(false);
+
+    // TODO: Change collections to Objects
     const [newCollection, setNewCollection] = useState([]);
 
     useEffect(() => {
         resetList();
     }, []);
+
+    useEffect(() => {
+        console.log(picking);
+    }, [picking]);
+
+    const addPokemon = (newPokemon) => {
+        setNewCollection([...newCollection, newPokemon]);
+    };
+
+    const togglePicking = () => {
+        setPicking(!picking);
+    };
+
+    const submitCollection = (name) => {
+        const data = {
+            collection: {
+                name: name,
+                pokemon: newCollection,
+            },
+        };
+
+        createCollection(data).then((col) => {
+            setNewCollection([]);
+            getCollections().then((collections) => {
+                console.log(collections);
+                dispatch({
+                    type: "GET_COLLECTIONS",
+                    payload: collections,
+                });
+            });
+        });
+    };
 
     const resetList = () => {
         P.getPokemonsList({
@@ -32,7 +70,7 @@ const AllPokemon = () => {
             .catch((err) => {
                 console.log(err);
             });
-    }
+    };
 
     const back = () => {
         if (offset > 0) {
@@ -80,9 +118,20 @@ const AllPokemon = () => {
 
     return (
         <div className={styles.container}>
-            <Filter P={P} setPokemon={setPokemon} resetList={resetList}/>
+            <Filter
+                P={P}
+                setPokemon={setPokemon}
+                togglePicking={togglePicking}
+                submitCollection={submitCollection}
+                resetList={resetList}
+            />
             {pokemon.map((pokemon) => (
-                <PokemonCard pokemon={pokemon} P={P} />
+                <PokemonCard
+                    pokemon={pokemon}
+                    P={P}
+                    picking={picking}
+                    addPokemon={addPokemon}
+                />
             ))}
             <div className={styles.pagination}>
                 <button onClick={back} disabled={backDisabled}>

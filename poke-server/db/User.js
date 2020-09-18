@@ -9,6 +9,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    // TODO: Change this to an Object
     collections: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Collection"

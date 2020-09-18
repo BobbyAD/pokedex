@@ -3,7 +3,13 @@ import { createCollection, getCollections } from "../../auth/authorization";
 import { Context } from "../../context/Context";
 import styles from "../../styles/filter.module.scss";
 
-const Filter = ({ P, setPokemon, resetList }) => {
+const Filter = ({
+    P,
+    setPokemon,
+    submitCollection,
+    togglePicking,
+    resetList,
+}) => {
     const [context, dispatch] = useContext(Context);
     const [showFilter, setShowFilter] = useState(false);
     const [regions, setRegions] = useState([]);
@@ -53,27 +59,27 @@ const Filter = ({ P, setPokemon, resetList }) => {
         //     }
         // }
 
-        const newPokemon = []
+        const newPokemon = [];
 
-        const selectedFilters = []
+        const selectedFilters = [];
 
         // These next two blocks are absolutely awful
         // TODO: Clean this up
         for (let s of Object.keys(selected)) {
             if (selected[s] === true) {
-                selectedFilters.push(s)
+                selectedFilters.push(s);
             }
         }
 
         // O(n^3)
         for (let p of selectedFilters) {
-            context.collections.map(col => {
+            context.collections.map((col) => {
                 if (col.name === p) {
-                    col.pokemon.map(pok => {
+                    col.pokemon.map((pok) => {
                         newPokemon.push(pok);
-                    })
+                    });
                 }
-            })
+            });
         }
 
         setPokemon(newPokemon);
@@ -85,33 +91,9 @@ const Filter = ({ P, setPokemon, resetList }) => {
 
     const addCollection = (e) => {
         e.preventDefault();
-        const data = {
-            collection: {
-                name: collectionValue,
-                pokemon: [
-                    {
-                        name: "charizard",
-                        url: "https://pokeapi.co/api/v2/pokemon/6/",
-                    },
-                    {
-                        name: "bulbasaur",
-                        url: "https://pokeapi.co/api/v2/pokemon/1/",
-                    },
-                ],
-            },
-        };
-
-        createCollection(data).then((col) => {
-            getCollections().then((collections) => {
-                console.log(collections);
-                setCollectionValue("");
-                dispatch({ type: "LOG_IN" });
-                dispatch({
-                    type: "GET_COLLECTIONS",
-                    payload: collections,
-                });
-            });
-        });
+        const name = collectionValue;
+        submitCollection(name);
+        setCollectionValue("");
     };
 
     const handleSearch = (e) => {
@@ -148,13 +130,13 @@ const Filter = ({ P, setPokemon, resetList }) => {
         }
     };
 
+    // TODO: break out in to components
     return (
         <div className={styles.container}>
             <div className={styles.filterContainer}>
                 <div className={styles.downArrow} onClick={toggleFilters}>
                     v <p>FILTERS</p> v
                 </div>
-                {/* TODO: FilterCategory component, this is too hard to read  */}
                 {showFilter ? (
                     <div className={styles.filters}>
                         <div className={styles.filterGroup}>
@@ -201,17 +183,24 @@ const Filter = ({ P, setPokemon, resetList }) => {
                                             )
                                         )}
                                     </div>
-                                    <form onSubmit={addCollection}>
-                                        <label>
-                                            Collection Name:
-                                            <input
-                                                type="text"
-                                                value={collectionValue}
-                                                onChange={handleCollectionValue}
-                                            />
-                                        </label>
-                                        <button type="submit">Add!</button>
-                                    </form>
+                                    <div>
+                                        <form onSubmit={addCollection}>
+                                            <label>
+                                                Collection Name:
+                                                <input
+                                                    type="text"
+                                                    value={collectionValue}
+                                                    onChange={
+                                                        handleCollectionValue
+                                                    }
+                                                />
+                                            </label>
+                                            <button type="submit">Add!</button>
+                                        </form>
+                                        <button onClick={togglePicking}>
+                                            Pick some Pokemon!
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         ) : (

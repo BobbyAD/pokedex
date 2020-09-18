@@ -33,7 +33,6 @@ const CollectionController = {
     },
     edit: (req, res, collectionId) => {},
     delete: (req, res, collectionId) => {},
-    verifyOwner: (req, res, userId) => {},
 };
 
 module.exports = CollectionController;
