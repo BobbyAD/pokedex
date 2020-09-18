@@ -36,33 +36,6 @@ function App() {
         });
     }, []);
 
-    // useEffect(() => {
-    //     // loginUser("1234@gmail.com", "asdf1234")
-    //     //     .then((user) => {
-    //     //         console.log(user);
-    //     //         getTest();
-    //     //     })
-    //     //     .catch((err) => {
-    //     //         console.log(err);
-    //     //     });
-
-    //     // createUser({ email: "1234@gmail.com", password: "asdf1234" })
-    //     //     .then((user) => {
-    //     //         console.log(user);
-    //     //         loginUser("1234@gmail.com", "asdf1234")
-    //     //             .then((user) => {
-    //     //                 console.log(user);
-    //     //                 getTest();
-    //     //             })
-    //     //             .catch((err) => {
-    //     //                 console.log(err);
-    //     //             });
-    //     //     })
-    //     //     .catch((err) => {
-    //     //         console.log(err);
-    //     //     });
-    // }, []);
-
     return (
         <div className={styles.container}>
             <Router>

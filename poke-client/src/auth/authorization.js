@@ -61,13 +61,14 @@ export const createCollection = (data) => {
     return auth()
         .currentUser.getIdToken()
         .then((token) => {
-            axios.post("http://localhost:5000/api/user/collections", data, {
+            return axios.post("http://localhost:5000/api/user/collections", data, {
                 headers: {
                     authorization: `Bearer ${token}`,
                 },
             })
             .then((res) => {
                 console.log(res);
+                return res;
             })
             .catch((err) => {
                 console.log(err);

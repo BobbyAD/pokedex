@@ -1,5 +1,5 @@
 // testing pokedex-promise-v2 package
-// TODO: build functionality here for passing through data when making user requests.
+// TODO: This will be where I get data from my databases, after restructuring pokeAPI for my app
 
 const router = require("express").Router();
 

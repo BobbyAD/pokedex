@@ -3,27 +3,6 @@ const User = require("../db/User");
 
 const CollectionController = {
     create: (req, res) => {
-        // console.log(req.body.collection);
-        // User.find({
-        //     firebaseId: req.authId,
-        // }).then((user) => {
-        //     console.log(user["_id"]);
-        //     console.log(user._id);
-        //     console.log(user);
-        //     let collection = new Collection({
-        //         ...req.body.collection,
-        //         owner: user._id,
-        //     });
-        //     collection
-        //         .save()
-        //         .then((doc) => {
-        //             res.status(201).json(doc);
-        //         })
-        //         .catch((err) => {
-        //             console.log(err);
-        //             res.status(500).json(err);
-        //         });
-        // });
         return Collection.create(req.body.collection)
             .then((doc) => {
                 console.log("doc", doc);
