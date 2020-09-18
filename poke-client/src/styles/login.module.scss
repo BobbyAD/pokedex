@@ -4,6 +4,7 @@
     align-items: center;
     justify-content: center;
     height: 60%;
+    width: 30%;
 }
 
 .form {
@@ -11,10 +12,37 @@
     flex-direction: column;
     justify-content: center;
 
+    width: 100%;
+
     label {
         margin: 10px 0;
         input {
             margin-left: 10px;
         }
     }
+}
+
+.label {
+    font-size: 1.4rem;
+    color: rgb(2, 23, 37);
+    margin-bottom: .5rem;
+}
+
+.field {
+    background: none;
+    padding: .4rem;
+    border: 2px solid rgb(248, 74, 74);
+    border-radius: 8px;
+    margin-bottom: .5rem;
+}
+
+.button {
+    background: rgb(18, 228, 123);
+    border: 2px solid rgb(61, 247, 185);
+    color: white;
+    font-weight: bold;
+    font-size: 1.4rem;
+    margin: .5rem 0 0;
+    padding: .5rem;
+    border-radius: 8px;
 }

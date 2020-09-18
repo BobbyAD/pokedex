@@ -22,19 +22,21 @@ const Header = () => {
     };
 
     return (
-        <div className={styles.container}>
-            <Link to="/">
-                <p>PokeDex</p>
-            </Link>
-            {context.loggedIn ? (
-                <button onClick={logOut}>Log Out</button>
-            ) : (
-                <div className={styles.loginRegister}>
-                    <Link to="/login">Login</Link>
-                    <Link to="/register">Register</Link>
-                </div>
-            )}
-        </div>
+        <header className={styles.container}>
+            <div className={styles.sizing}>
+                <Link to="/" className={styles.logo}>
+                    PokeDex
+                </Link>
+                {context.loggedIn ? (
+                    <button onClick={logOut} className={styles.logout}>Log Out</button>
+                ) : (
+                    <div className={styles.loginRegister}>
+                        <Link to="/login">Login</Link>
+                        <Link to="/register">Register</Link>
+                    </div>
+                )}
+            </div>
+        </header>
     );
 };
 

@@ -1,13 +1,13 @@
 .form {
     display: flex;
     flex-direction: column;
-    margin: 10px 0;
+    margin: 1rem 0;
 }
 
 .label {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     color: rgb(2, 23, 37);
-    margin-bottom: 5px;
+    margin-bottom: .5rem;
 }
 
 .field {
@@ -15,6 +15,7 @@
     padding: .4rem;
     border: 2px solid rgb(248, 74, 74);
     border-radius: 8px;
+    margin-bottom: .5rem;
 }
 
 .button {
@@ -23,7 +24,7 @@
     color: white;
     font-weight: bold;
     font-size: 1.4rem;
-    margin: 10px 0;
+    margin: .5rem 0 0;
     padding: .5rem;
     border-radius: 8px;
 }
