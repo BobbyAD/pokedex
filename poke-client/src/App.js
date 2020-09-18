@@ -22,12 +22,13 @@ function App() {
         auth().onAuthStateChanged((user) => {
             console.log("auth state changed");
             if (user) {
-                getCollections().then((res) => {
+                getCollections().then((collections) => {
+                    console.log(collections);
                     dispatch({ type: "LOG_IN" });
-                    // dispatch({
-                    //     type: "GET_COLLECTIONS",
-                    //     payload:
-                    // })
+                    dispatch({
+                        type: "GET_COLLECTIONS",
+                        payload: collections
+                    })
                 });
             } else {
                 dispatch({ type: "LOG_OUT" });

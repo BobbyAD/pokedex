@@ -32,7 +32,7 @@ export const getCollections = () => {
     return auth()
         .currentUser.getIdToken()
         .then((token) => {
-            axios
+            return axios
                 .get("http://localhost:5000/api/user/collections", {
                     headers: {
                         authorization: `Bearer ${token}`,
@@ -40,6 +40,7 @@ export const getCollections = () => {
                 })
                 .then((res) => {
                     console.log("collections", res.data);
+                    return res.data;
                 })
                 .catch((err) => {
                     console.log(err);

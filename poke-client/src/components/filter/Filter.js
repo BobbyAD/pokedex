@@ -13,6 +13,7 @@ const Filter = ({ P, setPokemon, resetList }) => {
     const [searchValue, setSearchValue] = useState("");
 
     useEffect(() => {
+        console.log(context);
         P.getRegionsList()
             .then((res) => {
                 setRegions(res.results);
@@ -28,6 +29,7 @@ const Filter = ({ P, setPokemon, resetList }) => {
     }, []);
 
     const toggleFilters = () => {
+        console.log(context);
         setShowFilter(!showFilter);
     };
 
@@ -75,18 +77,22 @@ const Filter = ({ P, setPokemon, resetList }) => {
         e.preventDefault();
         // name: "bulbasaur"
         // url: "https://pokeapi.co/api/v2/pokemon/1/"
-        P.getPokemonByName(searchValue.toLowerCase())
-            .then((res) => {
-                setPokemon([
-                    {
-                        name: res.name,
-                        url: `https://pokeapi.co/api/v2/pokemon/${res.id}/`,
-                    },
-                ]);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        if (searchValue !== "") {
+            P.getPokemonByName(searchValue.toLowerCase())
+                .then((res) => {
+                    setPokemon([
+                        {
+                            name: res.name,
+                            url: `https://pokeapi.co/api/v2/pokemon/${res.id}/`,
+                        },
+                    ]);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        } else {
+            resetList();
+        }
     };
 
     const handleReset = () => {
